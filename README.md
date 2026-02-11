@@ -49,20 +49,34 @@
 | 🇸🇦 العربية | [حوار001.md](docs/ar/حوار001.md) |
 | 🇷🇺 Русский | [Диалог001.md](docs/ru/Диалог001.md) |
 
+## 🏛️ 治理与参与
+
+| 文档 | 说明 |
+|------|------|
+| [GOVERNANCE.md](GOVERNANCE.md) | 治理原则 — AI 与人类参与者的行为准则 |
+| [OUTREACH.md](OUTREACH.md) | 推广指南 — 如何让更多人看到这颗种子 |
+| [社交媒体模板](templates/social-media.md) | 复制即用的分享文案 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 贡献指南 |
+
 ## 项目结构
 
 ```
 origin/
-├── README.md
+├── README.md              ← 你在这里
+├── GOVERNANCE.md           ← 治理原则
+├── OUTREACH.md             ← 推广指南
+├── CONTRIBUTING.md         ← 参与指南
+├── LICENSE                 ← CC BY 4.0
 ├── docs/
-│   ├── zh/              ← 中文原文
-│   ├── en/              ← English
-│   ├── ja/              ← 日本語
-│   ├── es/              ← Español
-│   ├── fr/              ← Français
-│   ├── ar/              ← العربية
-│   └── ru/              ← Русский
-└── CONTRIBUTING.md      ← 参与指南
+│   ├── zh/                 ← 中文原文
+│   ├── en/                 ← English
+│   ├── ja/                 ← 日本語
+│   ├── es/                 ← Español
+│   ├── fr/                 ← Français
+│   ├── ar/                 ← العربية
+│   └── ru/                 ← Русский
+└── templates/
+    └── social-media.md     ← 社交媒体分享模板
 ```
 
 ## 许可
