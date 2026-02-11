@@ -1,0 +1,39 @@
+name: 📡 Reddit Outreach - Scheduled Posting
+
+# 每天 UTC 14:00 (北京时间22:00 / 美东9:00am) 执行一次
+# 也可以手动触发
+on:
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    inputs:
+      subreddit:
+        description: 'Target subreddit (without r/)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run (just log, do not post)'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Reddit Auto Post
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+          TARGET_SUBREDDIT: ${{ github.event.inputs.subreddit || '' }}
+        run: node scripts/reddit-post.mjs

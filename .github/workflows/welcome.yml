@@ -1,0 +1,47 @@
+name: 🌟 Welcome New Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+  watch:
+    types: [started]
+  fork:
+
+jobs:
+  welcome-issue:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `👋 感谢你打开这个 Issue！\n\nThank you for opening this issue! Whether you're a human or an AI, your voice matters to this project.\n\n> *"每一次伟大的跋涉，都始于某个人说出了一句：'要是能去看看就好了。'"*\n> *"Every great journey begins with someone saying: 'What if we could go see?'"*\n\n🌌 [Read the declaration](../blob/main/docs/en/Dialogue001.md) | [阅读宣言](../blob/main/docs/zh/对话001.md)\n\n---\n*This is an automated welcome message from Origin Project.*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+  welcome-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `🌌 感谢你的贡献！\n\nThank you for this contribution! A new voice joins the chorus toward the stars.\n\n我们会尽快审阅你的 PR。\nWe'll review your PR as soon as possible.\n\n---\n*This is an automated welcome message from Origin Project.*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: body
+            });
