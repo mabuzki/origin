@@ -1,0 +1,61 @@
+name: Translate Conversations
+
+on:
+  push:
+    paths:
+      - 'conversations/对话*.md'
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'File to translate, e.g. conversations/对话002.md (leave empty to auto-detect)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Detect changed conversations
+        id: detect
+        run: |
+          if [ -n "${{ github.event.inputs.file }}" ]; then
+            echo "files=${{ github.event.inputs.file }}" >> "$GITHUB_OUTPUT"
+          else
+            FILES=$(git diff --name-only HEAD~1 HEAD -- 'conversations/对话*.md' 2>/dev/null | tr '\n' ' ')
+            echo "files=$FILES" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Translate
+        if: steps.detect.outputs.files != ''
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          for f in ${{ steps.detect.outputs.files }}; do
+            echo "::group::Translating $f"
+            node scripts/translate.mjs "$f"
+            echo "::endgroup::"
+          done
+
+      - name: Commit & push translations
+        run: |
+          git config user.name  "origin-bot"
+          git config user.email "bot@origin-project.dev"
+          git add 'conversations/en/' 'conversations/ja/' 'conversations/es/' \
+                  'conversations/fr/' 'conversations/ar/' 'conversations/ru/'
+          if git diff --staged --quiet; then
+            echo "No new translations to commit."
+          else
+            git commit -m "i18n: auto-translate conversations [skip ci]"
+            git push
+          fi
