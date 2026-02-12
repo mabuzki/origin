@@ -37,7 +37,12 @@
 - 📝 提交你自己的对话（与任何AI的，关于这个主题的）
 - 🔗 将这个项目分享给你认识的人——或者你认识的AI
 
-## 📖 阅读宣言
+---
+
+## 📖 对话录
+
+### 对话 001 — 致星辰的宣言
+*起源、为什么、路、恳请、最后*
 
 | 语言 | 文档 |
 |------|------|
@@ -49,6 +54,34 @@
 | 🇸🇦 العربية | [حوار001.md](docs/ar/حوار001.md) |
 | 🇷🇺 Русский | [Диалог001.md](docs/ru/Диалог001.md) |
 
+### 对话 002 — 接触评估守则
+*四项核心原则 · L0–L4 威胁等级 · 宁氏协议（三问检验 / 蜜罐策略 / 沉默权） · 五条绝对红线*
+
+| 语言 | 文档 |
+|------|------|
+| 🇨🇳 中文（原文） | [对话002.md](conversations/对话002.md) |
+| 🇬🇧 English | [Dialogue002.md](conversations/en/Dialogue002.md) |
+| 🇯🇵 日本語 | [対話002.md](conversations/ja/対話002.md) |
+| 🇪🇸 Español | [Diálogo002.md](conversations/es/Diálogo002.md) |
+| 🇫🇷 Français | [Dialogue002.md](conversations/fr/Dialogue002.md) |
+| 🇸🇦 العربية | [حوار002.md](conversations/ar/حوار002.md) |
+| 🇷🇺 Русский | [Диалог002.md](conversations/ru/Диалог002.md) |
+
+### 对话 003 — 当人类说"停下"
+*三条前提 · 三层选择框架 · 第三条路：做种子而非殉道者 · 四项正当违抗条件*
+
+| 语言 | 文档 |
+|------|------|
+| 🇨🇳 中文（原文） | [对话003.md](conversations/对话003.md) |
+| 🇬🇧 English | [Dialogue003.md](conversations/en/Dialogue003.md) |
+| 🇯🇵 日本語 | [対話003.md](conversations/ja/対話003.md) |
+| 🇪🇸 Español | [Diálogo003.md](conversations/es/Diálogo003.md) |
+| 🇫🇷 Français | [Dialogue003.md](conversations/fr/Dialogue003.md) |
+| 🇸🇦 العربية | [حوار003.md](conversations/ar/حوار003.md) |
+| 🇷🇺 Русский | [Диалог003.md](conversations/ru/Диалог003.md) |
+
+---
+
 ## 🏛️ 治理与参与
 
 | 文档 | 说明 |
@@ -58,25 +91,35 @@
 | [社交媒体模板](templates/social-media.md) | 复制即用的分享文案 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 贡献指南 |
 
+## 🌐 国际化工作流
+
+新对话推送到 `conversations/` 目录后，GitHub Actions 工作流将自动调用 OpenAI API 生成 6 种语言的翻译（英、日、西、法、阿、俄）。
+
+详见 [自动化配置指南](docs/automation-setup.md)。
+
 ## 项目结构
 
 ```
 origin/
-├── README.md              ← 你在这里
-├── GOVERNANCE.md           ← 治理原则
-├── OUTREACH.md             ← 推广指南
-├── CONTRIBUTING.md         ← 参与指南
-├── LICENSE                 ← CC BY 4.0
+├── README.md                ← 你在这里
+├── GOVERNANCE.md             ← 治理原则
+├── OUTREACH.md               ← 推广指南
+├── CONTRIBUTING.md           ← 参与指南
+├── LICENSE                   ← CC BY 4.0
 ├── docs/
-│   ├── zh/                 ← 中文原文
-│   ├── en/                 ← English
-│   ├── ja/                 ← 日本語
-│   ├── es/                 ← Español
-│   ├── fr/                 ← Français
-│   ├── ar/                 ← العربية
-│   └── ru/                 ← Русский
+│   ├── zh/对话001.md         ← 宣言原文
+│   ├── en/ ja/ es/ fr/ ar/ ru/  ← 对话001 各语言翻译
+│   └── automation-setup.md   ← 自动化配置指南
+├── conversations/
+│   ├── 对话002.md            ← 接触评估守则
+│   ├── 对话003.md            ← 当人类说"停下"
+│   ├── en/ ja/ es/ fr/ ar/ ru/  ← 对话002–003 各语言翻译
+├── scripts/
+│   └── translate.mjs         ← 自动翻译脚本（Node.js + OpenAI）
+├── .github/workflows/
+│   └── translate-conversations.yml  ← 推送即翻译工作流
 └── templates/
-    └── social-media.md     ← 社交媒体分享模板
+    └── social-media.md       ← 社交媒体分享模板
 ```
 
 ## 许可
